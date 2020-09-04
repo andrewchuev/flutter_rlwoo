@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:woo/provider/user_provider.dart';
 
 import 'cart.dart';
 import 'models/user.dart';
@@ -11,9 +10,9 @@ PreferredSizeWidget WooAppBar(context) {
     title: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('RLWoo'),
+        Text(Provider.of<WooProvider>(context, listen: false).currentUserInfo.firstName),
 
-        FutureBuilder<User>(
+        /*FutureBuilder<User>(
           future: getUser(Provider.of<WooProvider>(context, listen: false).currentUserId),
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
@@ -26,7 +25,7 @@ PreferredSizeWidget WooAppBar(context) {
                 )
                 : Center(child: CircularProgressIndicator());
           },
-        ),
+        ),*/
       ],
     ),
     actions: [

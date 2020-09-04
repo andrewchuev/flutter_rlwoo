@@ -1,11 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:woo/models/user.dart';
-import 'package:woo/provider/user_provider.dart';
 import 'package:woo/provider/woo_provider.dart';
-
 import 'list_products.dart';
 
 void main() {
@@ -24,6 +19,7 @@ class WooApp extends StatefulWidget {
 class _WooAppState extends State<WooApp> {
   @override
   Widget build(BuildContext context) {
+    Provider.of<WooProvider>(context, listen: false).getUserInfo();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Products(),

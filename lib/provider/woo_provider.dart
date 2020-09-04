@@ -30,6 +30,11 @@ class WooProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void getUserInfo() async {
+    _currentUserInfo = await getUser(3);
+    notifyListeners();
+  }
+
   int get productCount => _productCount;
 
   double get productTotal => _productTotal;
