@@ -20,7 +20,7 @@ class _SingleProductState extends State<SingleProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WooAppBar(context),
+      appBar: WooAppBar(context, 'Single product'),
       body: Container(
         child: FutureBuilder<Product>(
           future: fetchProduct(38),

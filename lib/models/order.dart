@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:woo/models/product.dart';
+import 'package:woo/models/user.dart';
 import 'package:woo/provider/woo_provider.dart';
 import 'package:woo/thankyou.dart';
 
@@ -47,8 +48,13 @@ Future getLineItems (String orderId) async {
 
 Future createOrder(context) async {
   var client = http.Client();
+  User user;
   String url = 'https://woo.reslab.cc/wp-json/wc/v3/orders';
   String params = '?consumer_key=ck_b871b5c35d7a77bd09ccfeeaf2afe24d9914b599&consumer_secret=cs_5811bcaa677652d3864dcc46fd4bc13f57c35a57';
+
+  user = Provider.of<WooProvider>(context, listen: false).currentUserInfo;
+  print('\n\n******** billing *********\n\n');
+  print(user.billing);
 
   var items = getCart(context);
   String lineItem = '';
@@ -61,16 +67,16 @@ Future createOrder(context) async {
     "payment_method_title": "Cash on delivery",
     "set_paid": true,
     "billing": {
-      "first_name": "John111",
-      "last_name": "Doe111",
-      "address_1": "969 Market",
+      "first_name": "${user.billing['first_name']}",
+      "last_name": "${user.billing['last_name']}",
+      "address_1": "${user.billing['address_1']}",
       "address_2": "",
-      "city": "San Francisco",
-      "state": "CA",
-      "postcode": "94103",
-      "country": "US",
-      "email": "john.doe@example.com",
-      "phone": "(555) 555-5555"
+      "city": "${user.billing['city']}",
+      "state": "${user.billing['state']}",
+      "postcode": "${user.billing['postcode']}",
+      "country": "${user.billing['country']}",
+      "email": "${user.billing['email']}",
+      "phone": "${user.billing['phone']}"
     },
     "shipping": {
       "first_name": "John",

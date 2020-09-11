@@ -17,7 +17,7 @@ class _ProductsState extends State<Products> {
   Widget build(BuildContext context) {
     //getProduct();
     return Scaffold(
-      appBar: WooAppBar(context),
+      appBar: WooAppBar(context, 'Products'),
       body: Padding(
         padding: const EdgeInsets.all(3.0),
         child: FutureBuilder<List<Product>>(

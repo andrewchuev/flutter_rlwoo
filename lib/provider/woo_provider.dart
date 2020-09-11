@@ -31,9 +31,11 @@ class WooProvider extends ChangeNotifier {
   }
 
   void getUserInfo() async {
-    _currentUserInfo = await getUser(3);
+    _currentUserInfo = await getUser(_currentUserId);
     notifyListeners();
   }
+
+  User get currentUserInfo => _currentUserInfo;
 
   int get productCount => _productCount;
 
@@ -48,8 +50,5 @@ class WooProvider extends ChangeNotifier {
 
   int get currentUserId => _currentUserId;
 
-  User get currentUserInfo => _currentUserInfo;
-
   set currentUserInfo(userId) => getUser(userId);
-//set age(int val) => birthYear = (DateTime.now().year - val);
 }

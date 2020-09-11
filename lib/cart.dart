@@ -16,22 +16,14 @@ class _WooCartState extends State<WooCart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WooAppBar(context),
+      appBar: WooAppBar(context, 'Cart'),
       body: Container(
           child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+         //crossAxisAlignment: CrossAxisAlignment.end,
+         //mainAxisAlignment: MainAxisAlignment.end,
+
         children: [
-          Consumer<WooProvider>(builder: (context, countOfProducts, child) {
-            return Text(
-              'Total count: ${countOfProducts.productCount}',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 26,
-              ),
-            );
-          }),
+
           Consumer<WooProvider>(builder: (context, prod, child) {
             return Expanded(
               child: ListView.builder(
@@ -53,21 +45,27 @@ class _WooCartState extends State<WooCart> {
               ),
             );
           }),
-          Consumer<WooProvider>(builder: (context, amount, child) {
-            return Text(
-              'Total amount: ' + amount.productTotal.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 26,
-              ),
+          Consumer<WooProvider>(builder: (context, countOfProducts, child) {
+            return ListTile(
+              title: Text('Total count: '),
+              trailing: Text('${countOfProducts.productCount}'),
             );
           }),
-          FlatButton(
-            child: Text('Checkout'),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => WooCheckout()));
-            },
-            color: Colors.black12,
+          Consumer<WooProvider>(builder: (context, amount, child) {
+            return ListTile(
+              title: Text('Amount: '),
+              trailing: Text('\$${amount.productTotal}'),
+            );
+          }),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FlatButton(
+              child: Text('Checkout'),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => WooCheckout()));
+              },
+              color: Colors.black12,
+            ),
           )
         ],
       )),

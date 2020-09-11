@@ -18,14 +18,13 @@ class _ThankYouState extends State<ThankYou> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WooAppBar(context),
+      appBar: WooAppBar(context, 'Order complete'),
       body: Column(
         children: [
           Text(
-            'Thank you! Order #' + widget.orderNumber,
+            'Thank you!',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-
           FutureBuilder<Order>(
             future: getOrder(widget.orderNumber),
             builder: (context, snapshot) {
@@ -34,17 +33,28 @@ class _ThankYouState extends State<ThankYou> {
                   ? Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(snapshot.data.id.toString()),
-                        Text(snapshot.data.billing['first_name']),
-                        Text(snapshot.data.billing['last_name']),
-                        Text(snapshot.data.billing['address_1']),
+                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                          Text('Odrer No'),
+                          Text(snapshot.data.id.toString()),
+                        ]),
+                        ListTile(
+                          title: Text('First Name'),
+                          trailing: Text(snapshot.data.billing['first_name']),
+                        ),
+                        ListTile(
+                          title: Text('Last Name'),
+                          trailing: Text(snapshot.data.billing['last_name']),
+                        ),
+                        ListTile(
+                          title: Text('Address'),
+                          trailing: Text(snapshot.data.billing['address_1']),
+                        ),
                         Text(snapshot.data.billing['city']),
                         Text(snapshot.data.billing['state']),
                         Text(snapshot.data.billing['postcode']),
                         Text(snapshot.data.billing['country']),
                         Text(snapshot.data.billing['email']),
                         Text(snapshot.data.billing['phone']),
-
                       ],
                     )
                   : Center(child: CircularProgressIndicator());
@@ -56,16 +66,15 @@ class _ThankYouState extends State<ThankYou> {
               if (snapshot.hasError) print(snapshot.error);
               return snapshot.hasData
                   ? Expanded(
-                    child: ListView.builder(
-                        itemCount: snapshot.data.lineItems.length,
-                        itemBuilder: (context, i) {
-                          return Text(snapshot.data.lineItems[i]['name'] + ' - ' + snapshot.data.lineItems[i]['price'].toString() );
-                        }),
-                  )
+                      child: ListView.builder(
+                          itemCount: snapshot.data.lineItems.length,
+                          itemBuilder: (context, i) {
+                            return Text(snapshot.data.lineItems[i]['name'] + ' - ' + snapshot.data.lineItems[i]['price'].toString());
+                          }),
+                    )
                   : Center(child: CircularProgressIndicator());
             },
           ),
-
           Consumer<WooProvider>(builder: (context, order, child) {
             return Text(
               'Total amount: ' + order.productTotal.toString(),
@@ -79,7 +88,8 @@ class _ThankYouState extends State<ThankYou> {
             child: Text('Go shop'),
             color: Colors.black12,
             onPressed: () {
-              //Navigator.push(context, MaterialPageRoute(builder: (context) => Products()));
+              Provider.of<WooProvider>(context, listen: false).clearCart();
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Products()));
             },
           )
         ],
@@ -88,11 +98,35 @@ class _ThankYouState extends State<ThankYou> {
   }
 }
 
-Map<String, dynamic> getTextWidgets(List<dynamic> items) {
-  Map items_list = {};
 
-  items.forEach((element) {});
-  //   Text(items[0]['name']),
 
-  return items_list;
+List<Widget> orderHeader(snapshot) {
+  List<Widget> items = [];
+  Map<String, String> fields = {
+    'First name': 'first_name',
+    'Last name': 'last_name',
+    'Address': 'address',
+    'City': 'city',
+    'State': 'state',
+    'Postcode': 'postcode',
+    'Country': 'country',
+    'Email': 'email',
+    'Phone': 'phone',
+  };
+
+  for(var item in fields.entries){
+    print("${item.key} - ${item.value}");
+    items.add(tableRow(item.key, item.value));
+  }
+
+  return items;
 }
+
+Widget tableRow(String title, String name) {
+  return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+    Text(title),
+    Text(name),
+  ]);
+}
+
+

@@ -5,37 +5,66 @@ import 'cart.dart';
 import 'models/user.dart';
 import 'provider/woo_provider.dart';
 
-PreferredSizeWidget WooAppBar(context) {
+PreferredSizeWidget WooAppBar(context, title) {
   return AppBar(
-    title: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(Provider.of<WooProvider>(context, listen: false).currentUserInfo.firstName),
-
-        /*FutureBuilder<User>(
-          future: getUser(Provider.of<WooProvider>(context, listen: false).currentUserId),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
-            return snapshot.hasData
-                ? Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('${snapshot.data.userName} (${snapshot.data.email}) ${snapshot.data.firstName} ${snapshot.data.lastName}', style: TextStyle(fontSize: 12, color: Colors.black),)
-                  ],
-                )
-                : Center(child: CircularProgressIndicator());
-          },
-        ),*/
-      ],
-    ),
+    title: Text(title),
     actions: [
       IconButton(
         icon: Icon(Icons.favorite_border),
         onPressed: () {},
       ),
-      IconButton(
-        icon: Icon(Icons.supervised_user_circle),
-        onPressed: () {},
+      Container(
+        height: 50,
+        width: 50,
+        child: Stack(
+          children: [
+            Positioned(
+              top: 10,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xFFF0C143),
+                  borderRadius: BorderRadius.horizontal(
+                    left: Radius.circular(15),
+                    right: Radius.circular(15),
+                  ),
+                ),
+                height: 15,
+                width: 50,
+                child: Center(
+                  child: Consumer<WooProvider>(builder: (context, userInfo, child) {
+                    return Text(
+                      userInfo.currentUserInfo.userName,
+                      style: TextStyle(color: Colors.black, fontSize: 10),
+                    );
+                  }),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => WooCart(),
+                    ),
+                  );
+                },
+                child: IconButton(
+                    icon: Icon(Icons.supervised_user_circle),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => WooCart(),
+                        ),
+                      );
+                    }),
+              ),
+            ),
+          ],
+        ),
       ),
       Container(
         height: 50,
