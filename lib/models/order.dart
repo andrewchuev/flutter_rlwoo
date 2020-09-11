@@ -133,5 +133,6 @@ Future<Order> getOrder(String orderId) async {
 
   //getLineItems(orderObj.lineItems);
   client.close();
+  print(orderObj);
   return orderObj;
 }
