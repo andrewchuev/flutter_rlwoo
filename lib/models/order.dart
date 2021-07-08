@@ -49,8 +49,8 @@ Future getLineItems (String orderId) async {
 Future createOrder(context) async {
   var client = http.Client();
   User user;
-  String url = 'https://woo.reslab.cc/wp-json/wc/v3/orders';
-  String params = '?consumer_key=ck_b871b5c35d7a77bd09ccfeeaf2afe24d9914b599&consumer_secret=cs_5811bcaa677652d3864dcc46fd4bc13f57c35a57';
+  String url = 'https://woo.reslab.pro/wp-json/wc/v3/orders';
+  String params = '?consumer_key=ck_be69348004c013e605a4f25064bb1add2e7c8af6&consumer_secret=cs_260c82209f3552f3db2d3838c5c255a7f343d3b3';
 
   user = Provider.of<WooProvider>(context, listen: false).currentUserInfo;
   print('\n\n******** billing *********\n\n');
@@ -126,8 +126,8 @@ List<Product> getCart(context) {
 Future<Order> getOrder(String orderId) async {
   print('orderId = $orderId');
   var client = http.Client();
-  String url = 'https://woo.reslab.cc/wp-json/wc/v3/orders/$orderId/';
-  String params = '?consumer_key=ck_b871b5c35d7a77bd09ccfeeaf2afe24d9914b599&consumer_secret=cs_5811bcaa677652d3864dcc46fd4bc13f57c35a57';
+  String url = 'https://woo.reslab.pro/wp-json/wc/v3/orders/$orderId/';
+  String params = '?consumer_key=ck_be69348004c013e605a4f25064bb1add2e7c8af6&consumer_secret=cs_260c82209f3552f3db2d3838c5c255a7f343d3b3';
   var response = await http.get(url + params, headers: {'Content-type': 'application/json'});
   var orderObj = Order.fromJson(jsonDecode(response.body));
 

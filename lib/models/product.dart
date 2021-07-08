@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 
 Future<List<Product>> fetchProducts() async {
   var client = http.Client();
-  String url = 'https://woo.reslab.cc/wp-json/wc/v3/products/';
-  String params = '/?consumer_key=ck_b871b5c35d7a77bd09ccfeeaf2afe24d9914b599&consumer_secret=cs_5811bcaa677652d3864dcc46fd4bc13f57c35a57';
+  String url = 'https://woo.reslab.pro/wp-json/wc/v3/products/';
+  String params = '/?consumer_key=ck_be69348004c013e605a4f25064bb1add2e7c8af6&consumer_secret=cs_260c82209f3552f3db2d3838c5c255a7f343d3b3';
   final response = await client.get(url + params);
   // print(response.body);
   client.close();
@@ -21,8 +21,8 @@ List<Product> parseProducts(String responseBody) {
 
 Future<Product> fetchProduct(int productId) async {
   var client = http.Client();
-  String url = 'https://woo.reslab.cc/wp-json/wc/v3/products/';
-  String params = '/?consumer_key=ck_b871b5c35d7a77bd09ccfeeaf2afe24d9914b599&consumer_secret=cs_5811bcaa677652d3864dcc46fd4bc13f57c35a57';
+  String url = 'https://woo.reslab.pro/wp-json/wc/v3/products/';
+  String params = '/?consumer_key=ck_be69348004c013e605a4f25064bb1add2e7c8af6&consumer_secret=cs_260c82209f3552f3db2d3838c5c255a7f343d3b3';
   final response = await client.get(url + productId.toString() + params);
   //print(response.body);
   client.close();
@@ -51,7 +51,7 @@ class Product {
 
 Future<void> getProduct() async {
   var url =
-      'https://woo.reslab.cc/wp-json/wc/v3/products/38/?consumer_key=ck_b871b5c35d7a77bd09ccfeeaf2afe24d9914b599&consumer_secret=cs_5811bcaa677652d3864dcc46fd4bc13f57c35a57';
+      'https://woo.reslab.pro/wp-json/wc/v3/products/38/?consumer_key=ck_be69348004c013e605a4f25064bb1add2e7c8af6&consumer_secret=cs_260c82209f3552f3db2d3838c5c255a7f343d3b3';
   var response = await http.get(url);
   print('Response status: ${response.statusCode}');
   print('Response body: ${response.body}');
