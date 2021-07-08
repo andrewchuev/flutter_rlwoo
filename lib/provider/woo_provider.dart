@@ -6,7 +6,7 @@ class WooProvider extends ChangeNotifier {
   int _productCount = 0;
   double _productTotal = 0;
   List<Product> _productList = [];
-  int _currentUserId = 3;
+  int _currentUserId = 2;
   User _currentUserInfo;
 
   void removeFromCart(Product product) {

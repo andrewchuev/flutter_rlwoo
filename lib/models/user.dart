@@ -71,7 +71,7 @@ Future createUser() async {
 
 Future<User> getUser(int userId) async {
   var client = http.Client();
-  String url = 'https://woo.reslab.pro/wp-json/wc/v3/customers/1';
+  String url = 'https://woo.reslab.pro/wp-json/wc/v3/customers/$userId';
   String params = '?consumer_key=ck_be69348004c013e605a4f25064bb1add2e7c8af6&consumer_secret=cs_260c82209f3552f3db2d3838c5c255a7f343d3b3';
   var response = await http.get(url + params, headers: {'Content-type': 'application/json'});
   print('\n\n********** getUser ************\n\n');
