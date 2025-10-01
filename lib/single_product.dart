@@ -23,7 +23,7 @@ class _SingleProductState extends State<SingleProduct> {
       appBar: WooAppBar(context, 'Single product'),
       body: Container(
         child: FutureBuilder<Product>(
-          future: fetchProduct(38),
+          future: fetchProduct(widget.productId),
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
             return snapshot.hasData
